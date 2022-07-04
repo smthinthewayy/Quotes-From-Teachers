@@ -19,10 +19,19 @@ public class QFTController {
   private TextField loginField;
 
   @FXML
+  private Button buttonForgotPassword;
+
+  @FXML
+  private Button guestButton;
+
+  @FXML
   private PasswordField passwordField;
 
   @FXML
   private Button singInButton;
+
+  @FXML
+  private Button changeButton;
 
   @FXML
   private Label output;
@@ -51,6 +60,18 @@ public class QFTController {
   public void moveToRegistration(ActionEvent event) throws IOException {
     Main m = new Main();
     m.changeScene("registration.fxml");
+  }
+
+  @FXML
+  public void moveToRecovery(ActionEvent event) throws IOException {
+    Main m = new Main();
+    m.changeScene("recovery.fxml");
+  }
+
+  @FXML
+  public void moveToAfterLogin(ActionEvent event) throws IOException {
+    Main m = new Main();
+    m.changeScene("afterLogin.fxml");
   }
 
   @FXML
@@ -95,7 +116,7 @@ public class QFTController {
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
 
-      Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "Quotes123456789");
+      Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "password");
 
       Statement statement = connection.createStatement();
       String query = "SELECT * FROM users WHERE login='" + loginField.getText() + "' AND hash_password='" + makeMD5(passwordField.getText()) + "'";
@@ -109,6 +130,30 @@ public class QFTController {
         wrongLogin.setText("Please enter your data");
       } else {
         wrongLogin.setText("Wrong username or password");
+      }
+
+      connection.close();
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+
+  @FXML
+  void userChangePassword(ActionEvent event) {
+    try {
+      Class.forName("com.mysql.cj.jdbc.Driver");
+
+      Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "password");
+
+      Statement statement = connection.createStatement();
+      String query = "UPDATE users SET hash_password='" + makeMD5(passwordField.getText()) + "' WHERE login='" + loginField.getText() + "';";
+
+      if (statement.executeUpdate(query) == 1) {
+        output.setText("You have successfully changed your password");
+        output.setTextFill(Paint.valueOf("GREEN"));
+      } else {
+        output.setText("This login does not exist");
+        output.setTextFill(Paint.valueOf("RED"));
       }
 
       connection.close();

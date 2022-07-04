@@ -32,6 +32,16 @@
                </font>
             </Label>
             <Label fx:id="wrongLogin" alignment="CENTER" contentDisplay="CENTER" layoutX="288.0" layoutY="169.0" prefHeight="17.0" prefWidth="178.0" textAlignment="CENTER" textFill="RED" textOverrun="CENTER_ELLIPSIS" />
+            <Button fx:id="buttonForgotPassword" layoutX="329.0" layoutY="237.0" mnemonicParsing="false" onAction="#moveToRecovery" style="-fx-background-color: #F5F5F5;" text="Forgot password?" textAlignment="CENTER" textFill="#b5b4b4" underline="true">
+               <font>
+                  <Font name="Comic Sans MS" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="guestButton" layoutX="642.0" layoutY="277.0" mnemonicParsing="false" onAction="#moveToAfterLogin" prefHeight="34.0" prefWidth="65.0" style="-fx-background-color: #F5F5F5#F5F5F5;" text="Guest" textAlignment="CENTER">
+               <font>
+                  <Font name="Comic Sans MS" size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <Label alignment="CENTER" layoutX="92.0" layoutY="14.0" prefHeight="78.0" prefWidth="517.0" text="Quotes From Teachers" textFill="WHITESMOKE">
