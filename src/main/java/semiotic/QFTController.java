@@ -25,11 +25,6 @@ public class QFTController {
   private Label wrongLogin;
 
   @FXML
-  public void userLogin() {
-    checkLogin();
-  }
-
-  @FXML
   public void moveToAuthorization() throws IOException {
     Main m = new Main();
     m.changeScene("authorization.fxml");
@@ -53,44 +48,12 @@ public class QFTController {
     m.changeScene("afterLogin.fxml");
   }
 
-  private Connection createConnection() throws SQLException {
-    return DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "123qwerty");
+  public Connection createConnection() throws SQLException {
+    return DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "password");
   }
 
   @FXML
-  public void userSignUp() {
-    try {
-      Connection connection = createConnection();
-      Statement statement = connection.createStatement();
-      String query = String.format("INSERT INTO users(login, hash_password) VALUES ('%s', '%s');", loginField.getText(), makeMD5(passwordField.getText()));
-      try {
-        statement.execute(query);
-        output.setTextFill(Paint.valueOf("GREEN"));
-        output.setText("You have successfully registered");
-      } catch (SQLIntegrityConstraintViolationException e) {
-        output.setText("This login already exists");
-        output.setTextFill(Paint.valueOf("RED"));
-      }
-      connection.close();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  public static String makeMD5(String password) {
-    MessageDigest md;
-    try {
-      md = MessageDigest.getInstance("MD5");
-      md.update(password.getBytes());
-      String pwd = new BigInteger(1, md.digest()).toString(16);
-      return pwd.toUpperCase();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return password;
-  }
-
-  private void checkLogin() {
+  public void userLogIn() {
     try {
       Connection connection = createConnection();
       Statement statement = connection.createStatement();
@@ -112,7 +75,40 @@ public class QFTController {
   }
 
   @FXML
-  void userChangePassword() {
+  public void userSignUp() {
+    try {
+      Connection connection = createConnection();
+      Statement statement = connection.createStatement();
+      String query = String.format("INSERT INTO users(login, hash_password, role) VALUES ('%s', '%s', %d);", loginField.getText(), makeMD5(passwordField.getText()), 3);
+      try {
+        statement.execute(query);
+        output.setTextFill(Paint.valueOf("GREEN"));
+        output.setText("You have successfully registered");
+      } catch (SQLIntegrityConstraintViolationException e) {
+        output.setText("This login already exists");
+        output.setTextFill(Paint.valueOf("RED"));
+      }
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static String makeMD5(String password) {
+    MessageDigest md;
+    try {
+      md = MessageDigest.getInstance("MD5");
+      md.update(password.getBytes());
+      String pwd = new BigInteger(1, md.digest()).toString(16);
+      return pwd.toUpperCase();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return password;
+  }
+
+  @FXML
+  public void userChangePassword() {
     try {
       Connection connection = createConnection();
       Statement statement = connection.createStatement();

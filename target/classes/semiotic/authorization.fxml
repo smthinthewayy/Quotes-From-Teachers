@@ -22,7 +22,7 @@
                 <Font name="Comic Sans MS" size="13.0"/>
             </font>
         </PasswordField>
-        <Button fx:id="singInButton" layoutX="339.0" layoutY="195.0" mnemonicParsing="false" onAction="#userLogin"
+        <Button fx:id="singInButton" layoutX="339.0" layoutY="195.0" mnemonicParsing="false" onAction="#userLogIn"
                 style="-fx-background-color: #000000;" text="Sign In" textAlignment="CENTER" textFill="WHITESMOKE">
             <font>
                 <Font name="Comic Sans MS" size="16.0"/>
