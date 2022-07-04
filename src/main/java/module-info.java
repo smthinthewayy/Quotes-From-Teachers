@@ -10,6 +10,8 @@ module com.example.quotes {
   requires org.kordamp.bootstrapfx.core;
   requires eu.hansolo.tilesfx;
   requires com.almasb.fxgl.all;
+  requires java.sql;
+  requires mysql.connector.java;
 
   opens semiotic to javafx.fxml;
   exports semiotic;
