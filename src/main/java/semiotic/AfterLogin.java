@@ -15,5 +15,4 @@ public class AfterLogin {
     Main m = new Main();
     m.changeScene("sample.fxml");
   }
-
 }

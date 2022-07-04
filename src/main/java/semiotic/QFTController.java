@@ -6,14 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Paint;
 
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class QFTController {
 
@@ -27,14 +25,57 @@ public class QFTController {
   private Button singInButton;
 
   @FXML
+  private Label output;
+
+  @FXML
   private Label wrongLogin;
 
   @FXML
   private Button singUpButton;
 
   @FXML
+  private Button backBotton;
+
+  @FXML
   public void userLogin(ActionEvent event) throws IOException {
     checkLogin();
+  }
+
+  @FXML
+  public void userBack(ActionEvent event) throws IOException {
+    Main m = new Main();
+    m.changeScene("sample.fxml");
+  }
+
+  @FXML
+  public void moveToRegistration(ActionEvent event) throws IOException {
+    Main m = new Main();
+    m.changeScene("registration.fxml");
+  }
+
+  @FXML
+  public void userSignUp(ActionEvent event) throws IOException {
+    try {
+      Class.forName("com.mysql.cj.jdbc.Driver");
+
+      Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "password");
+
+      Statement statement = connection.createStatement();
+      String query = "INSERT INTO users(login, hash_password) VALUES ('" + loginField.getText() + "', '" + makeMD5(passwordField.getText()) + "');";
+
+      try {
+        statement.execute(query);
+        output.setTextFill(Paint.valueOf("GREEN"));
+        output.setText("You have successfully registered");
+      } catch (SQLIntegrityConstraintViolationException e) {
+        output.setText("This login already exists");
+        output.setTextFill(Paint.valueOf("RED"));
+      }
+
+      connection.close();
+    } catch (Exception e) {
+      System.out.println(e);
+    }
   }
 
   public static String makeMD5(String password) {
@@ -54,10 +95,10 @@ public class QFTController {
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
 
-      Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "Quotes123");
+      Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "Quotes123456789");
 
       Statement statement = connection.createStatement();
-      String query = "SELECT * FROM users WHERE login='" + loginField.getText().toString() + "' AND hash_password='" + makeMD5(passwordField.getText()) + "'";
+      String query = "SELECT * FROM users WHERE login='" + loginField.getText() + "' AND hash_password='" + makeMD5(passwordField.getText()) + "'";
       ResultSet result = statement.executeQuery(query);
 
       Main m = new Main();

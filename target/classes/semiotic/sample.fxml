@@ -39,7 +39,7 @@
             <Font name="Comic Sans MS" size="48.0" />
          </font>
       </Label>
-      <Button fx:id="singUpButton" layoutX="621.0" mnemonicParsing="false" style="-fx-background-color: #F5F5F5#F5F5F5;" text="Sign Up" textAlignment="CENTER">
+      <Button fx:id="singUpButton" layoutX="621.0" mnemonicParsing="false" onAction="#moveToRegistration" style="-fx-background-color: #F5F5F5#F5F5F5;" text="Sign Up" textAlignment="CENTER">
          <font>
             <Font name="Comic Sans MS" size="16.0" />
          </font>
