@@ -11,6 +11,6 @@ module com.example.quotes {
   requires eu.hansolo.tilesfx;
   requires com.almasb.fxgl.all;
 
-  opens com.example.quotes to javafx.fxml;
-  exports com.example.quotes;
+  opens semiotic to javafx.fxml;
+  exports semiotic;
 }
