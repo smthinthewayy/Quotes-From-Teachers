@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="quotes" options="--add-exports javafx.controls/javafx=com.example.quotes" />
+      <module name="quotes" options="" />
     </option>
   </component>
 </project>

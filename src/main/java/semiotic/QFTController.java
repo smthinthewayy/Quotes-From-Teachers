@@ -1,8 +1,6 @@
 package semiotic;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -14,24 +12,11 @@ import java.security.MessageDigest;
 import java.sql.*;
 
 public class QFTController {
-
   @FXML
   private TextField loginField;
 
   @FXML
-  private Button buttonForgotPassword;
-
-  @FXML
-  private Button guestButton;
-
-  @FXML
   private PasswordField passwordField;
-
-  @FXML
-  private Button singInButton;
-
-  @FXML
-  private Button changeButton;
 
   @FXML
   private Label output;
@@ -40,50 +25,44 @@ public class QFTController {
   private Label wrongLogin;
 
   @FXML
-  private Button singUpButton;
-
-  @FXML
-  private Button backBotton;
-
-  @FXML
-  public void userLogin(ActionEvent event) throws IOException {
+  public void userLogin() {
     checkLogin();
   }
 
   @FXML
-  public void userBack(ActionEvent event) throws IOException {
+  public void moveToAuthorization() throws IOException {
     Main m = new Main();
-    m.changeScene("sample.fxml");
+    m.changeScene("authorization.fxml");
   }
 
   @FXML
-  public void moveToRegistration(ActionEvent event) throws IOException {
+  public void moveToRegistration() throws IOException {
     Main m = new Main();
     m.changeScene("registration.fxml");
   }
 
   @FXML
-  public void moveToRecovery(ActionEvent event) throws IOException {
+  public void moveToRecovery() throws IOException {
     Main m = new Main();
     m.changeScene("recovery.fxml");
   }
 
   @FXML
-  public void moveToAfterLogin(ActionEvent event) throws IOException {
+  public void moveToAfterLogin() throws IOException {
     Main m = new Main();
     m.changeScene("afterLogin.fxml");
   }
 
+  private Connection createConnection() throws SQLException {
+    return DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "123qwerty");
+  }
+
   @FXML
-  public void userSignUp(ActionEvent event) throws IOException {
+  public void userSignUp() {
     try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-
-      Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "password");
-
+      Connection connection = createConnection();
       Statement statement = connection.createStatement();
-      String query = "INSERT INTO users(login, hash_password) VALUES ('" + loginField.getText() + "', '" + makeMD5(passwordField.getText()) + "');";
-
+      String query = String.format("INSERT INTO users(login, hash_password) VALUES ('%s', '%s');", loginField.getText(), makeMD5(passwordField.getText()));
       try {
         statement.execute(query);
         output.setTextFill(Paint.valueOf("GREEN"));
@@ -92,10 +71,9 @@ public class QFTController {
         output.setText("This login already exists");
         output.setTextFill(Paint.valueOf("RED"));
       }
-
       connection.close();
     } catch (Exception e) {
-      System.out.println(e);
+      e.printStackTrace();
     }
   }
 
@@ -112,16 +90,12 @@ public class QFTController {
     return password;
   }
 
-  private void checkLogin() throws IOException {
+  private void checkLogin() {
     try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-
-      Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "password");
-
+      Connection connection = createConnection();
       Statement statement = connection.createStatement();
-      String query = "SELECT * FROM users WHERE login='" + loginField.getText() + "' AND hash_password='" + makeMD5(passwordField.getText()) + "'";
+      String query = String.format("SELECT * FROM users WHERE login = '%s' AND hash_password = '%s';", loginField.getText(), makeMD5(passwordField.getText()));
       ResultSet result = statement.executeQuery(query);
-
       Main m = new Main();
       if (result.next()) {
         wrongLogin.setText("Success");
@@ -131,23 +105,18 @@ public class QFTController {
       } else {
         wrongLogin.setText("Wrong username or password");
       }
-
       connection.close();
     } catch (Exception e) {
-      System.out.println(e);
+      e.printStackTrace();
     }
   }
 
   @FXML
-  void userChangePassword(ActionEvent event) {
+  void userChangePassword() {
     try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-
-      Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "password");
-
+      Connection connection = createConnection();
       Statement statement = connection.createStatement();
-      String query = "UPDATE users SET hash_password='" + makeMD5(passwordField.getText()) + "' WHERE login='" + loginField.getText() + "';";
-
+      String query = String.format("UPDATE users SET hash_password = '%s' WHERE login = '%s';", makeMD5(passwordField.getText()), loginField.getText());
       if (statement.executeUpdate(query) == 1) {
         output.setText("You have successfully changed your password");
         output.setTextFill(Paint.valueOf("GREEN"));
@@ -155,10 +124,9 @@ public class QFTController {
         output.setText("This login does not exist");
         output.setTextFill(Paint.valueOf("RED"));
       }
-
       connection.close();
     } catch (Exception e) {
-      System.out.println(e);
+      e.printStackTrace();
     }
   }
 }
