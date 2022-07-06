@@ -1,12 +1,14 @@
 package semiotic;
 
+import java.sql.Date;
+
 public class Item {
   private final String quote;
   private final String teacher;
   private final String subject;
-  private final String date;
+  private final Date date;
 
-  public Item(String quote, String teacher, String subject, String date) {
+  public Item(String quote, String teacher, String subject, Date date) {
     this.quote = quote;
     this.teacher = teacher;
     this.subject = subject;
@@ -25,7 +27,7 @@ public class Item {
     return subject;
   }
 
-  public String getDate() {
+  public Date getDate() {
     return date;
   }
 }
