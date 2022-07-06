@@ -3,28 +3,33 @@ package semiotic;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.*;
 
 public class Read {
   @FXML
-  private static TableView<Item> table;
+  private TableView<Item> tableQuotes;
 
   @FXML
-  private static TableColumn<Item, String> columnQoute;
+  private TableColumn<Item, String> columnQuote;
 
   @FXML
-  private static TableColumn<Item, String> columnDate;
+  private TableColumn<Item, String> columnDate;
 
   @FXML
-  private static TableColumn<Item, String> columnSubject;
+  private TableColumn<Item, String> columnSubject;
 
   @FXML
-  private static TableColumn<Item, String> columnTeacher;
+  private TableColumn<Item, String> columnTeacher;
 
-  public static void filling() {
+  @FXML
+  public void moveToMenu() {
+    Main.changeScene("menu.fxml");
+  }
+
+  public void filling() {
     try {
-      table = new TableView<>();
       Connection connection = Main.createConnection();
       Statement statement = connection.createStatement();
 
@@ -37,17 +42,16 @@ public class Read {
         String subject = result.getString("subject");
         Date date = result.getDate("date");
 
-        table.getItems().addAll(new Item(quote, teacher, subject, date));
-
-//        System.out.print(", quote = \"" + quote + "\"");
-//        System.out.print(", teacher = \"" + teacher + "\"");
-//        System.out.print(", subject = \"" + subject + "\".");
-//        System.out.println(", date = " + date);
+        tableQuotes.getItems().addAll(new Item(quote, teacher, subject, date));
       }
 
       connection.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
+    columnQuote.setCellValueFactory(new PropertyValueFactory<>("Quote"));
+    columnTeacher.setCellValueFactory(new PropertyValueFactory<>("Teacher"));
+    columnSubject.setCellValueFactory(new PropertyValueFactory<>("Subject"));
+    columnDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
   }
 }

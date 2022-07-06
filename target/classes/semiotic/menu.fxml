@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #000000#000000;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="semiotic.Menu">
     <AnchorPane layoutX="-7.0" layoutY="85.0" prefHeight="322.0" prefWidth="707.0" style="-fx-background-color: #F5F5F5#F5F5F5;">
-        <Button fx:id="CreateButton" layoutX="316.0" layoutY="69.0" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Create" textAlignment="CENTER" textFill="WHITESMOKE" AnchorPane.leftAnchor="317.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="85.0">
+        <Button fx:id="CreateButton" layoutX="316.0" layoutY="69.0" mnemonicParsing="false" onAction="#moveToCreate" style="-fx-background-color: #000000;" text="Create" textAlignment="CENTER" textFill="WHITESMOKE" AnchorPane.leftAnchor="317.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="85.0">
             <font>
                 <Font name="Comic Sans MS" size="16.0" />
             </font>
