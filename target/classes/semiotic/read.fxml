@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #000000#000000;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="semiotic.Menu">
+    <AnchorPane layoutX="-7.0" layoutY="85.0" prefHeight="322.0" prefWidth="707.0" style="-fx-background-color: #F5F5F5#F5F5F5;">
+      <children>
+         <TableView fx:id="tblItems" layoutX="7.0" prefHeight="322.0" prefWidth="700.0">
+           <columns>
+             <TableColumn fx:id="colQoute" prefWidth="350.0" text="Quote" />
+             <TableColumn fx:id="colTeacher" minWidth="0.0" prefWidth="135.07699584960938" text="Teacher" />
+               <TableColumn fx:id="colSubject" prefWidth="106.86553955078125" text="Subject" />
+               <TableColumn fx:id="colDate" minWidth="0.0" prefWidth="107.13446044921875" text="Date" />
+           </columns>
+         </TableView>
+      </children>
+    </AnchorPane>
+    <Label alignment="CENTER" layoutX="92.0" layoutY="14.0" prefHeight="78.0" prefWidth="517.0" text="Quotes From Teachers" textFill="WHITESMOKE">
+        <font>
+            <Font name="Comic Sans MS" size="48.0" />
+        </font>
+    </Label>
+</AnchorPane>
