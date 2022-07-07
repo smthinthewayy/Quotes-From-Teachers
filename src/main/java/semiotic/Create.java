@@ -5,7 +5,6 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Paint;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 
@@ -20,7 +19,7 @@ public class Create {
   private TextField subjectTextField;
 
   @FXML
-  private TextField dateTextField;
+  private DatePicker datePicker;
 
   @FXML
   private Label output;
@@ -35,17 +34,17 @@ public class Create {
       Connection connection = Main.createConnection();
       Statement statement = connection.createStatement();
 
-      String quoteText = quoteTextArea.getText();
+      String quoteText = setMargins(quoteTextArea.getText());
       String teacher = teacherTextField.getText();
       String subject = subjectTextField.getText();
-      Date date = Date.valueOf(dateTextField.getText());
+      String date = "";
+      if (datePicker.getValue() != null) date = String.valueOf(datePicker.getValue()).trim();
 
-
-      if (quoteText.isEmpty() || teacher.isEmpty() || subject.isEmpty() || dateTextField.getText().isEmpty()) {
+      if (quoteText.isEmpty() || teacher.isEmpty() || subject.isEmpty() || date.isEmpty()) {
         output.setTextFill(Paint.valueOf("RED"));
         output.setText("Please enter the full details");
       } else {
-        String query = "INSERT INTO quotes_teachers VALUES (8, 1, '" + quoteText + "', '" + teacher + "', '" + subject + "', STR_TO_DATE('" + date + "', '%Y-%m-%d'));";
+        String query = "INSERT INTO quotes_teachers(id_user, quote, teacher, subject, date) VALUES (" + DataSource.user.getId() + ", '" + quoteText + "', '" + teacher + "', '" + subject + "', STR_TO_DATE('" + date + "', '%Y-%m-%d'));";
         try {
           statement.execute(query);
           output.setTextFill(Paint.valueOf("GREEN"));
@@ -59,5 +58,12 @@ public class Create {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private String setMargins(String temp) {
+    String result = "";
+    for (int i = 60; i < temp.length(); i += 60)
+      result += temp.substring(i - 60, i) + "\n";
+    return result;
   }
 }

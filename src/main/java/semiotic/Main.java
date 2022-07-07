@@ -28,15 +28,6 @@ public class Main extends Application {
     primaryStage.show();
   }
 
-//  public static void changeScene(String fxml) {
-//    try {
-//      Parent pane = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource(fxml)));
-//      stg.getScene().setRoot(pane);
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//  }
-
   public static Object changeScene(String fxml) {
     try {
       FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
@@ -53,7 +44,7 @@ public class Main extends Application {
     Connection connection = null;
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-      connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "qwertyuiop");
+      connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "password");
     } catch (Exception e) {
       e.printStackTrace();
     }

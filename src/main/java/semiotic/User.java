@@ -4,11 +4,19 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 
 public class User {
-  private int id;
+  private final int id;
   private String login;
-  private String studyGroup;
-  private String hashPassword;
+  private final String studyGroup;
+  private final String hashPassword;
   private int role;
+
+  public User(int id, String login, String studyGroup, String hashPassword, int role) {
+    this.id = id;
+    this.login = login;
+    this.studyGroup = studyGroup;
+    this.hashPassword = hashPassword;
+    this.role = role;
+  }
 
   public int getId() {
     return id;
@@ -24,6 +32,10 @@ public class User {
 
   public void setLogin(String login) {
     this.login = login;
+  }
+
+  public void setRole(int role) {
+    this.role = role;
   }
 
   public String getLogin() {

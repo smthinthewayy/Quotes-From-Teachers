@@ -30,6 +30,14 @@ public class Authorization {
   }
 
   @FXML
+  public void moveToRead() {
+    DataSource.user = new User(0, "", "", "", 0);
+    Object obj = Main.changeScene("read.fxml");
+    assert obj != null;
+    ((Read) obj).filling();
+  }
+
+  @FXML
   public void moveToRegistration() {
     Main.changeScene("registration.fxml");
   }
@@ -46,6 +54,7 @@ public class Authorization {
       String query = String.format("SELECT * FROM users WHERE login = '%s' AND hash_password = '%s';", login, hashPassword);
       ResultSet result = statement.executeQuery(query);
       if (result.next()) {
+        DataSource.user = new User(result.getInt("id"), login, result.getString("study_group"), hashPassword, result.getInt("role"));
         moveToMenu();
       } else if (loginField.getText().isEmpty() && passwordField.getText().isEmpty()) {
         output.setText("Please enter your data");

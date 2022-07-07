@@ -25,7 +25,8 @@ public class Read {
 
   @FXML
   public void moveToMenu() {
-    Main.changeScene("menu.fxml");
+    if (DataSource.user.getRole() != 0) Main.changeScene("menu.fxml");
+    else Main.changeScene("authorization.fxml");
   }
 
   public void filling() {
