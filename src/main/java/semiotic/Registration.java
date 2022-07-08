@@ -9,6 +9,7 @@ import javafx.scene.paint.Paint;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.regex.Pattern;
 
 public class Registration {
   @FXML
@@ -38,10 +39,12 @@ public class Registration {
       String studyGroup = studyGroupField.getText();
       int role = 3;
 
+      Pattern pattern = Pattern.compile("[1-9]\\d{2}-\\d{3}");
+
       if (login.isEmpty() || hashPassword.isEmpty() || studyGroup.isEmpty()) {
         output.setTextFill(Paint.valueOf("RED"));
         output.setText("Please enter your data");
-      } else if (studyGroup.length() > 7) {
+      } else if (!pattern.matcher(studyGroup).matches()) {
         output.setTextFill(Paint.valueOf("RED"));
         output.setText("Wrong study group format");
       } else {
