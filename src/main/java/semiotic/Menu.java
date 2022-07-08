@@ -27,4 +27,11 @@ public class Menu {
     assert obj != null;
     ((MyQuotes) obj).fillingOnlyMyQuotes();
   }
+
+  @FXML
+  public void moveToProfile() {
+    Object obj = Main.changeScene("profile.fxml");
+    assert obj != null;
+    ((Profile) obj).init();
+  }
 }

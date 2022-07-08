@@ -7,38 +7,55 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #000000#000000;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="semiotic.Recovery">
-    <AnchorPane layoutX="-7.0" layoutY="85.0" prefHeight="322.0" prefWidth="707.0" style="-fx-background-color: #F5F5F5#F5F5F5;">
-        <TextField fx:id="loginField" layoutX="288.0" layoutY="85.0" promptText="Login" AnchorPane.bottomAnchor="209.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="239.5" AnchorPane.topAnchor="85.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="700.0" style="-fx-background-color: #000000#000000;" xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="semiotic.Recovery">
+    <AnchorPane layoutX="-7.0" layoutY="85.0" prefHeight="322.0" prefWidth="707.0"
+                style="-fx-background-color: #F5F5F5#F5F5F5;">
+        <TextField fx:id="loginField" layoutX="288.0" layoutY="85.0" promptText="Login" AnchorPane.bottomAnchor="209.0"
+                   AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="239.5" AnchorPane.topAnchor="85.0">
             <font>
-                <Font name="Comic Sans MS" size="13.0" />
+                <Font name="Comic Sans MS" size="13.0"/>
             </font>
         </TextField>
-        <PasswordField fx:id="passwordField" layoutX="290.0" layoutY="133.0" promptText="New password" AnchorPane.bottomAnchor="169.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="239.5" AnchorPane.topAnchor="125.0">
+        <PasswordField fx:id="passwordField" layoutX="290.0" layoutY="133.0" promptText="New password"
+                       AnchorPane.bottomAnchor="169.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="239.5"
+                       AnchorPane.topAnchor="125.0">
             <font>
-                <Font name="Comic Sans MS" size="13.0" />
+                <Font name="Comic Sans MS" size="13.0"/>
             </font>
         </PasswordField>
-        <Button fx:id="changeButton" layoutX="343.0" layoutY="195.0" mnemonicParsing="false" onAction="#userChangePassword" style="-fx-background-color: #000000;" text="Change" textAlignment="CENTER" textFill="WHITESMOKE" AnchorPane.bottomAnchor="103.0" AnchorPane.leftAnchor="339.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="185.0">
+        <Button fx:id="changeButton" layoutX="343.0" layoutY="195.0" mnemonicParsing="false"
+                onAction="#userChangePassword" style="-fx-background-color: #000000;" text="Change"
+                textAlignment="CENTER" textFill="WHITESMOKE" AnchorPane.bottomAnchor="103.0"
+                AnchorPane.leftAnchor="339.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="185.0">
             <font>
-                <Font name="Comic Sans MS" size="16.0" />
+                <Font name="Comic Sans MS" size="16.0"/>
             </font>
         </Button>
-        <Label alignment="CENTER" layoutX="274.0" prefHeight="78.0" prefWidth="206.0" text="Recovery" AnchorPane.bottomAnchor="244.0" AnchorPane.leftAnchor="274.0" AnchorPane.rightAnchor="227.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" layoutX="274.0" prefHeight="78.0" prefWidth="206.0" text="Recovery"
+               AnchorPane.bottomAnchor="244.0" AnchorPane.leftAnchor="274.0" AnchorPane.rightAnchor="227.0"
+               AnchorPane.topAnchor="0.0">
             <font>
-                <Font name="Comic Sans MS" size="32.0" />
+                <Font name="Comic Sans MS" size="32.0"/>
             </font>
         </Label>
-        <Label fx:id="output" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="161.0" prefHeight="17.0" prefWidth="277.0" textAlignment="CENTER" textFill="#36e84a" textOverrun="CENTER_ELLIPSIS" AnchorPane.topAnchor="161.0" />
-        <Button fx:id="backBotton" layoutX="356.0" layoutY="243.0" mnemonicParsing="false" onAction="#moveToAuthorization" style="-fx-background-color: #000000;" text="Back" textAlignment="CENTER" textFill="WHITESMOKE" AnchorPane.bottomAnchor="59.0" AnchorPane.topAnchor="235.0">
+        <Label fx:id="output" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="161.0"
+               prefHeight="17.0" prefWidth="277.0" textAlignment="CENTER" textFill="#36e84a"
+               textOverrun="CENTER_ELLIPSIS" AnchorPane.topAnchor="161.0"/>
+        <Button fx:id="backBotton" layoutX="356.0" layoutY="243.0" mnemonicParsing="false"
+                onAction="#moveToAuthorization" style="-fx-background-color: #000000;" text="Back"
+                textAlignment="CENTER" textFill="WHITESMOKE" AnchorPane.bottomAnchor="59.0"
+                AnchorPane.topAnchor="235.0">
             <font>
-                <Font name="Comic Sans MS" size="13.0" />
+                <Font name="Comic Sans MS" size="13.0"/>
             </font>
         </Button>
     </AnchorPane>
-    <Label alignment="CENTER" layoutX="92.0" layoutY="14.0" prefHeight="78.0" prefWidth="517.0" text="Quotes From Teachers" textFill="WHITESMOKE">
+    <Label alignment="CENTER" layoutX="92.0" layoutY="14.0" prefHeight="78.0" prefWidth="517.0"
+           text="Quotes From Teachers" textFill="WHITESMOKE">
         <font>
-            <Font name="Comic Sans MS" size="48.0" />
+            <Font name="Comic Sans MS" size="48.0"/>
         </font>
     </Label>
 </AnchorPane>

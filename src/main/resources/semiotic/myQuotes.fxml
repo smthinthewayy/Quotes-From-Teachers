@@ -7,37 +7,48 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #000000#000000;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="semiotic.MyQuotes">
-    <AnchorPane layoutX="-7.0" layoutY="85.0" prefHeight="322.0" prefWidth="707.0" style="-fx-background-color: #F5F5F5#F5F5F5;">
-        <children>
-            <TableView fx:id="tableQuotes" layoutX="7.0" prefHeight="322.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <columns>
-                    <TableColumn fx:id="columnQuote" prefWidth="350.0" text="Quote" />
-                    <TableColumn fx:id="columnTeacher" minWidth="0.0" prefWidth="110.281005859375" text="Teacher" />
-                    <TableColumn fx:id="columnSubject" prefWidth="132.218994140625" text="Subject" />
-                    <TableColumn fx:id="columnDate" minWidth="0.0" prefWidth="88.29998779296875" text="Date" />
-                </columns>
-            </TableView>
-        </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="700.0" style="-fx-background-color: #000000#000000;" xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="semiotic.MyQuotes">
+    <AnchorPane layoutX="-7.0" layoutY="85.0" prefHeight="322.0" prefWidth="707.0"
+                style="-fx-background-color: #F5F5F5#F5F5F5;">
+        <TableView fx:id="tableQuotes" layoutX="7.0" prefHeight="322.0" prefWidth="700.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="columnQuote" prefWidth="350.0" text="Quote"/>
+                <TableColumn fx:id="columnTeacher" minWidth="0.0" prefWidth="110.281005859375" text="Teacher"/>
+                <TableColumn fx:id="columnSubject" prefWidth="132.218994140625" text="Subject"/>
+                <TableColumn fx:id="columnDate" minWidth="0.0" prefWidth="88.29998779296875" text="Date"/>
+            </columns>
+        </TableView>
     </AnchorPane>
-    <Label alignment="CENTER" layoutX="92.0" layoutY="14.0" prefHeight="78.0" prefWidth="517.0" text="Quotes From Teachers" textFill="WHITESMOKE">
+    <Label alignment="CENTER" layoutX="92.0" layoutY="14.0" prefHeight="78.0" prefWidth="517.0"
+           text="Quotes From Teachers" textFill="WHITESMOKE">
         <font>
-            <Font name="Comic Sans MS" size="48.0" />
+            <Font name="Comic Sans MS" size="48.0"/>
         </font>
     </Label>
-    <Button fx:id="backButton" layoutX="643.0" layoutY="-1.0" mnemonicParsing="false" onAction="#moveToMenu" style="-fx-background-color: #F5F5F5#F5F5F5;" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="366.0" AnchorPane.leftAnchor="643.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-0.0">
+    <Button fx:id="backButton" layoutX="643.0" layoutY="-1.0" mnemonicParsing="false" onAction="#moveToMenu"
+            style="-fx-background-color: #F5F5F5#F5F5F5;" text="Back" textAlignment="CENTER"
+            AnchorPane.bottomAnchor="366.0" AnchorPane.leftAnchor="643.5" AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="-0.0">
         <font>
-            <Font name="Comic Sans MS" size="16.0" />
+            <Font name="Comic Sans MS" size="16.0"/>
         </font>
     </Button>
-   <Button fx:id="updateButton" layoutX="-1.0" layoutY="1.0" mnemonicParsing="false" onAction="#botUpdate" prefHeight="34.0" prefWidth="76.0" style="-fx-background-color: #F5F5F5#F5F5F5;" text="Update" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <font>
-         <Font name="Comic Sans MS" size="16.0" />
-      </font>
-   </Button>
-   <Button fx:id="deleteButton" layoutY="43.0" mnemonicParsing="false" onAction="#deleteQuote" prefHeight="34.0" prefWidth="76.0" style="-fx-background-color: #F5F5F5#F5F5F5;" text="Delete" textAlignment="CENTER" AnchorPane.leftAnchor="0.0">
-      <font>
-         <Font name="Comic Sans MS" size="16.0" />
-      </font>
-   </Button>
+    <Button fx:id="updateButton" layoutX="-1.0" layoutY="1.0" mnemonicParsing="false" onAction="#botUpdate"
+            prefHeight="34.0" prefWidth="76.0" style="-fx-background-color: #F5F5F5#F5F5F5;" text="Update"
+            textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <font>
+            <Font name="Comic Sans MS" size="16.0"/>
+        </font>
+    </Button>
+    <Button fx:id="deleteButton" layoutY="43.0" mnemonicParsing="false" onAction="#deleteQuote" prefHeight="34.0"
+            prefWidth="76.0" style="-fx-background-color: #F5F5F5#F5F5F5;" text="Delete" textAlignment="CENTER"
+            AnchorPane.leftAnchor="0.0">
+        <font>
+            <Font name="Comic Sans MS" size="16.0"/>
+        </font>
+    </Button>
 </AnchorPane>

@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 public class User {
   private final int id;
   private String login;
+  private String hashPassword;
   private final String studyGroup;
   private final int role;
 
@@ -13,6 +14,7 @@ public class User {
     this.id = id;
     this.login = login;
     this.studyGroup = studyGroup;
+    this.hashPassword = hashPassword;
     this.role = role;
   }
 
@@ -20,9 +22,15 @@ public class User {
     return id;
   }
 
+  public String getLogin() {
+    return login;
+  }
+
   public int getRole() {
     return role;
   }
+
+  public String getStudyGroup() { return studyGroup; }
 
   public static String makeMD5(String password) {
     MessageDigest md;
