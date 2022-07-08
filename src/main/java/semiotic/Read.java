@@ -32,10 +32,11 @@ public class Read {
   public void filling() {
     try {
       Connection connection = Main.createConnection();
-      Statement statement = connection.createStatement();
 
       String query = "SELECT * FROM quotes_teachers";
-      ResultSet result = statement.executeQuery(query);
+      PreparedStatement statement = connection.prepareStatement(query);
+
+      ResultSet result = statement.executeQuery();
 
       while (result.next()) {
         String quote = result.getString("quote");

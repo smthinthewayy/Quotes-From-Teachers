@@ -7,9 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
-import java.sql.Connection;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 
 public class Update {
@@ -46,7 +44,6 @@ public class Update {
   public void saveChanges() {
     try {
       Connection connection = Main.createConnection();
-      Statement statement = connection.createStatement();
 
       String quoteText = setMargins(quoteTextArea.getText());
       String teacher = teacherTextField.getText();
@@ -58,9 +55,17 @@ public class Update {
         output.setTextFill(Paint.valueOf("RED"));
         output.setText("Please enter the full details");
       } else {
-        String query = String.format("UPDATE quotes_teachers SET quote = '%s', teacher = '%s', subject = '%s', date = STR_TO_DATE('%s', '%%Y-%%m-%%d') WHERE id = %d;", quoteText, teacher, subject, date, DataSource.id_quote);
+        String query = "UPDATE quotes_teachers SET quote = ?, teacher = ?, subject = ?, date = ? WHERE id = ?;";
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        statement.setString(1, quoteText);
+        statement.setString(2, teacher);
+        statement.setString(3, subject);
+        statement.setDate(4, Date.valueOf(datePicker.getValue()));
+        statement.setInt(5, DataSource.id_quote);
+
         try {
-          statement.execute(query);
+          statement.execute();
           output.setTextFill(Paint.valueOf("GREEN"));
           output.setText("You have successfully changed the quote");
         } catch (SQLIntegrityConstraintViolationException e) {

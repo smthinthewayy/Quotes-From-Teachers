@@ -31,10 +31,13 @@ public class MyQuotes {
   public void fillingOnlyMyQuotes() {
     try {
       Connection connection = Main.createConnection();
-      Statement statement = connection.createStatement();
 
-      String query = "SELECT * FROM quotes_teachers WHERE id_user = " + DataSource.user.getId() + ";";
-      ResultSet result = statement.executeQuery(query);
+      String query = "SELECT * FROM quotes_teachers WHERE id_user = ?;";
+      PreparedStatement statement = connection.prepareStatement(query);
+
+      statement.setInt(1, DataSource.user.getId());
+
+      ResultSet result = statement.executeQuery();
 
       while (result.next()) {
         String quote = result.getString("quote");
@@ -61,14 +64,18 @@ public class MyQuotes {
 
     try {
       Connection connection = Main.createConnection();
-      Statement statement = connection.createStatement();
 
-      String query = String.format("SELECT id FROM quotes_teachers WHERE (quote = '%s') AND (teacher = '%s') AND (subject = '%s') AND (date = STR_TO_DATE('%s', '%%Y-%%m-%%d'));", item.getQuote(), item.getTeacher(), item.getSubject(), item.getDate().toString());
-      ResultSet result = statement.executeQuery(query);
+      String query = "SELECT id FROM quotes_teachers WHERE (quote = ?) AND (teacher = ?) AND (subject = ?) AND (date = ?);";
+      PreparedStatement statement = connection.prepareStatement(query);
 
-      while (result.next()) {
-        DataSource.id_quote = result.getInt("id");
-      }
+      statement.setString(1, item.getQuote());
+      statement.setString(2, item.getTeacher());
+      statement.setString(3, item.getSubject());
+      statement.setDate(4, item.getDate());
+
+      ResultSet result = statement.executeQuery();
+
+      while (result.next()) DataSource.id_quote = result.getInt("id");
 
       connection.close();
     } catch (Exception e) {
@@ -86,12 +93,17 @@ public class MyQuotes {
 
     try {
       Connection connection = Main.createConnection();
-      Statement statement = connection.createStatement();
 
-      String query = String.format("DELETE FROM quotes_teachers WHERE (quote = '%s') AND (teacher = '%s') AND (subject = '%s') AND (date = STR_TO_DATE('%s', '%%Y-%%m-%%d'));", item.getQuote(), item.getTeacher(), item.getSubject(), item.getDate().toString());
+      String query = "DELETE FROM quotes_teachers WHERE (quote = ?) AND (teacher = ?) AND (subject = ?) AND (date = ?);";
+      PreparedStatement statement = connection.prepareStatement(query);
+
+      statement.setString(1, item.getQuote());
+      statement.setString(2, item.getTeacher());
+      statement.setString(3, item.getSubject());
+      statement.setDate(4, item.getDate());
 
       try {
-        statement.execute(query);
+        statement.execute();
       } catch (SQLIntegrityConstraintViolationException e) {
         System.out.println(e);
       }

@@ -7,8 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.sql.Statement;
 
 public class Registration {
   @FXML
@@ -32,7 +32,6 @@ public class Registration {
   public void userSignUp() {
     try {
       Connection connection = Main.createConnection();
-      Statement statement = connection.createStatement();
 
       String login = loginField.getText();
       String hashPassword = User.makeMD5(passwordField.getText());
@@ -46,9 +45,16 @@ public class Registration {
         output.setTextFill(Paint.valueOf("RED"));
         output.setText("Wrong study group format");
       } else {
-        String query = String.format("INSERT INTO users(login, study_group, hash_password, role) VALUES ('%s', '%s', '%s', %d);", login, studyGroup, hashPassword, role);
+        String query = "INSERT INTO users(login, study_group, hash_password, role) VALUES (?, ?, ?, ?);";
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        statement.setString(1, login);
+        statement.setString(2, studyGroup);
+        statement.setString(3, hashPassword);
+        statement.setInt(4, role);
+
         try {
-          statement.execute(query);
+          statement.execute();
           output.setTextFill(Paint.valueOf("GREEN"));
           output.setText("You have successfully registered");
         } catch (SQLIntegrityConstraintViolationException e) {

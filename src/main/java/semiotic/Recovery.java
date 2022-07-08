@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class Recovery {
@@ -28,7 +29,6 @@ public class Recovery {
   public void userChangePassword() {
     try {
       Connection connection = Main.createConnection();
-      Statement statement = connection.createStatement();
 
       String newLogin = loginField.getText();
       String newHashPassword = User.makeMD5(passwordField.getText());
@@ -37,8 +37,13 @@ public class Recovery {
         output.setTextFill(Paint.valueOf("RED"));
         output.setText("Please enter your data");
       } else {
-        String query = String.format("UPDATE users SET hash_password = '%s' WHERE login = '%s';", newHashPassword, newLogin);
-        if (statement.executeUpdate(query) == 1) {
+        String query = "UPDATE users SET hash_password = ? WHERE login = ?;";
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        statement.setString(1, newHashPassword);
+        statement.setString(2, newLogin);
+
+        if (statement.executeUpdate() == 1) {
           output.setText("You have successfully changed your password");
           output.setTextFill(Paint.valueOf("GREEN"));
         } else {

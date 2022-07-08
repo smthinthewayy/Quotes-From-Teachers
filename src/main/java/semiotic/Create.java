@@ -4,9 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Paint;
 
-import java.sql.Connection;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Create {
   @FXML
@@ -32,7 +30,6 @@ public class Create {
   public void userCreateQuote() {
     try {
       Connection connection = Main.createConnection();
-      Statement statement = connection.createStatement();
 
       String quoteText = setMargins(quoteTextArea.getText());
       String teacher = teacherTextField.getText();
@@ -44,9 +41,17 @@ public class Create {
         output.setTextFill(Paint.valueOf("RED"));
         output.setText("Please enter the full details");
       } else {
-        String query = "INSERT INTO quotes_teachers(id_user, quote, teacher, subject, date) VALUES (" + DataSource.user.getId() + ", '" + quoteText + "', '" + teacher + "', '" + subject + "', STR_TO_DATE('" + date + "', '%Y-%m-%d'));";
+        String query = "INSERT INTO quotes_teachers(id_user, quote, teacher, subject, date) VALUES (?, ?, ?, ?, ?);";
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        statement.setInt(1, DataSource.user.getId());
+        statement.setString(2, quoteText);
+        statement.setString(3, teacher);
+        statement.setString(4, subject);
+        statement.setDate(5, Date.valueOf(datePicker.getValue()));
+
         try {
-          statement.execute(query);
+          statement.execute();
           output.setTextFill(Paint.valueOf("GREEN"));
           output.setText("You have successfully added a quote");
         } catch (SQLIntegrityConstraintViolationException e) {

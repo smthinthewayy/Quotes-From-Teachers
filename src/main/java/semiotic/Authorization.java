@@ -6,8 +6,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class Authorization {
   @FXML
@@ -46,13 +46,17 @@ public class Authorization {
   public void userLogIn() {
     try {
       Connection connection = Main.createConnection();
-      Statement statement = connection.createStatement();
 
       String login = loginField.getText();
       String hashPassword = User.makeMD5(passwordField.getText());
 
-      String query = String.format("SELECT * FROM users WHERE login = '%s' AND hash_password = '%s';", login, hashPassword);
-      ResultSet result = statement.executeQuery(query);
+      String query = "SELECT * FROM users WHERE login = ? AND hash_password = ?;";
+      PreparedStatement statement = connection.prepareStatement(query);
+
+      statement.setString(1, login);
+      statement.setString(2, hashPassword);
+
+      ResultSet result = statement.executeQuery();
       if (result.next()) {
         DataSource.user = new User(result.getInt("id"), login, result.getString("study_group"), hashPassword, result.getInt("role"));
         moveToMenu();
