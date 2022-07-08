@@ -32,10 +32,18 @@ public class MyQuotes {
     try {
       Connection connection = Main.createConnection();
 
-      String query = "SELECT * FROM quotes_teachers WHERE id_user = ?;";
-      PreparedStatement statement = connection.prepareStatement(query);
+      String query;
+      PreparedStatement statement;
 
-      statement.setInt(1, DataSource.user.getId());
+      if (DataSource.user.getRole() == 1) {
+        query = "SELECT * FROM quotes_teachers";
+        statement = connection.prepareStatement(query);
+      } else {
+        query = "SELECT * FROM quotes_teachers WHERE id_user = ?;";
+        statement = connection.prepareStatement(query);
+
+        statement.setInt(1, DataSource.user.getId());
+      }
 
       ResultSet result = statement.executeQuery();
 

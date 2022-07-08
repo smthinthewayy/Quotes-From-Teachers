@@ -8,6 +8,7 @@ import javafx.scene.paint.Paint;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 public class Profile {
@@ -24,6 +25,9 @@ public class Profile {
   private TextField studyGroupField;
 
   @FXML
+  private Label numberOfQuotesButton;
+
+  @FXML
   public void moveToMenu() {
     Main.changeScene("menu.fxml");
   }
@@ -31,6 +35,37 @@ public class Profile {
   public void init() {
     loginField.setText(DataSource.user.getLogin());
     studyGroupField.setText(DataSource.user.getStudyGroup());
+
+    int cnumberOfQuotes = 0;
+
+    try {
+      Connection connection = Main.createConnection();
+
+      String query;
+      PreparedStatement statement;
+
+      if (DataSource.user.getRole() == 1) {
+        query = "SELECT COUNT(id) FROM quotes_teachers";
+        statement = connection.prepareStatement(query);
+      } else {
+        query = "SELECT COUNT(id) FROM quotes_teachers WHERE id_user = ?";
+        statement = connection.prepareStatement(query);
+
+        statement.setInt(1, DataSource.user.getId());
+      }
+
+      ResultSet result = statement.executeQuery();
+
+      while (result.next()) {
+        cnumberOfQuotes = result.getInt("COUNT(id)");
+      }
+
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    numberOfQuotesButton.setText("Number of quotes: " + cnumberOfQuotes);
   }
 
   @FXML
