@@ -1,23 +1,18 @@
 package semiotic;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
 import java.sql.Connection;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
-public class Create {
-  @FXML
-  private TextArea quoteTextArea;
-
-  @FXML
-  private TextField teacherTextField;
-
-  @FXML
-  private TextField subjectTextField;
-
+public class Update {
   @FXML
   private DatePicker datePicker;
 
@@ -25,11 +20,30 @@ public class Create {
   private Label output;
 
   @FXML
-  public void moveToMenu() {
-    Main.changeScene("menu.fxml");
+  private TextArea quoteTextArea;
+
+  @FXML
+  private TextField subjectTextField;
+
+  @FXML
+  private TextField teacherTextField;
+
+  @FXML
+  public void moveToMyQuotes() {
+    Object obj = Main.changeScene("myQuotes.fxml");
+    assert obj != null;
+    ((MyQuotes) obj).fillingOnlyMyQuotes();
   }
 
-  public void userCreateQuote() {
+  public void init(Item item) {
+    quoteTextArea.setText(item.getQuote());
+    teacherTextField.setText(item.getTeacher());
+    subjectTextField.setText(item.getSubject());
+    datePicker.setValue(LocalDate.of(Integer.parseInt(item.getDate().toString().substring(0, 4)), Integer.parseInt(item.getDate().toString().substring(5, 7)), Integer.parseInt(item.getDate().toString().substring(8, 10))));
+  }
+
+  @FXML
+  public void saveChanges() {
     try {
       Connection connection = Main.createConnection();
       Statement statement = connection.createStatement();
@@ -44,11 +58,11 @@ public class Create {
         output.setTextFill(Paint.valueOf("RED"));
         output.setText("Please enter the full details");
       } else {
-        String query = "INSERT INTO quotes_teachers(id_user, quote, teacher, subject, date) VALUES (" + DataSource.user.getId() + ", '" + quoteText + "', '" + teacher + "', '" + subject + "', STR_TO_DATE('" + date + "', '%Y-%m-%d'));";
+        String query = String.format("UPDATE quotes_teachers SET quote = '%s', teacher = '%s', subject = '%s', date = STR_TO_DATE('%s', '%%Y-%%m-%%d') WHERE id = %d;", quoteText, teacher, subject, date, DataSource.id_quote);
         try {
           statement.execute(query);
           output.setTextFill(Paint.valueOf("GREEN"));
-          output.setText("You have successfully added a quote");
+          output.setText("You have successfully changed the quote");
         } catch (SQLIntegrityConstraintViolationException e) {
           output.setTextFill(Paint.valueOf("RED"));
           output.setText("Error");

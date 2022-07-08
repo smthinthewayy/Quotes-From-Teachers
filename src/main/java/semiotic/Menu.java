@@ -20,4 +20,11 @@ public class Menu {
   public void moveToCreate() {
     Main.changeScene("create.fxml");
   }
+
+  @FXML
+  public void moveToMyQuotes() {
+    Object obj = Main.changeScene("myQuotes.fxml");
+    assert obj != null;
+    ((MyQuotes) obj).fillingOnlyMyQuotes();
+  }
 }
