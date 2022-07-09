@@ -13,6 +13,11 @@ module com.example.quotes {
   requires java.sql;
   requires mysql.connector.java;
 
-  opens semiotic to javafx.fxml;
-  exports semiotic;
+  opens smthinthewayy.Controller to javafx.fxml;
+  opens smthinthewayy.Model to javafx.fxml;
+  opens smthinthewayy.Service to javafx.fxml;
+
+  exports smthinthewayy.Controller;
+  exports smthinthewayy.Model;
+  exports smthinthewayy.Service;
 }
