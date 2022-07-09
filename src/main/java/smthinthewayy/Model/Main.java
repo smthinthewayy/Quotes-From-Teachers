@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import smthinthewayy.Service.DataSource;
+import smthinthewayy.Service.Role;
+import smthinthewayy.Service.User;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,6 +18,7 @@ public class Main extends Application {
   private static Stage stg;
 
   public static void main(String[] args) {
+    DataSource.user = new User(0, "", "", "", Role.GUEST);
     launch();
   }
 

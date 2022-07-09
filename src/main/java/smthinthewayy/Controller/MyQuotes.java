@@ -7,6 +7,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import smthinthewayy.Model.Main;
 import smthinthewayy.Service.DataSource;
 import smthinthewayy.Service.Item;
+import smthinthewayy.Service.Role;
 
 import java.sql.*;
 
@@ -36,18 +37,22 @@ public class MyQuotes {
       Connection connection = Main.createConnection();
 
       String query;
-      PreparedStatement statement;
+      PreparedStatement statement = null;
 
-      if (DataSource.user.getRole() == 1) {
-        query = "SELECT * FROM quotes_teachers";
-        statement = connection.prepareStatement(query);
-      } else {
+      if (DataSource.user.getRole().equals(Role.STUDENT)) {
         query = "SELECT * FROM quotes_teachers WHERE id_user = ?;";
         statement = connection.prepareStatement(query);
-
         statement.setInt(1, DataSource.user.getId());
+      } else if (DataSource.user.getRole().equals(Role.VERIFIER)) {
+        query = "SELECT * FROM quotes_teachers WHERE id_user IN (SELECT id FROM users WHERE study_group = ?);";
+        statement = connection.prepareStatement(query);
+        statement.setString(1, DataSource.user.getStudyGroup());
+      } else if (DataSource.user.getRole().equals(Role.SUPERUSER)) {
+        query = "SELECT * FROM quotes_teachers";
+        statement = connection.prepareStatement(query);
       }
 
+      assert statement != null;
       ResultSet result = statement.executeQuery();
 
       while (result.next()) {

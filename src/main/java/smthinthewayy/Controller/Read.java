@@ -7,6 +7,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import smthinthewayy.Model.Main;
 import smthinthewayy.Service.DataSource;
 import smthinthewayy.Service.Item;
+import smthinthewayy.Service.Permission;
+import smthinthewayy.Service.Role;
 
 import java.sql.*;
 
@@ -28,8 +30,8 @@ public class Read {
 
   @FXML
   public void moveToMenu() {
-    if (DataSource.user.getRole() != 0) Main.changeScene("/menu.fxml");
-    else Main.changeScene("/authorization.fxml");
+    if (DataSource.user.getRole() == Role.GUEST) Main.changeScene("/authorization.fxml");
+    else Main.changeScene("/menu.fxml");
   }
 
   public void filling() {

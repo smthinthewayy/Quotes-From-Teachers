@@ -35,7 +35,12 @@
             </font>
         </Button>
         <Label fx:id="output" alignment="CENTER" contentDisplay="CENTER" layoutX="212.0" layoutY="200.0" prefHeight="17.0" prefWidth="282.0" textAlignment="CENTER" textFill="#36e84a" textOverrun="CENTER_ELLIPSIS" />
-      <Label fx:id="numberOfQuotesButton" alignment="CENTER" contentDisplay="CENTER" layoutX="555.0" layoutY="1.0" prefHeight="28.0" prefWidth="152.0" text="Number of quotes:" textAlignment="CENTER" textFill="#ababab" textOverrun="CENTER_ELLIPSIS">
+      <Label fx:id="numberOfQuotesButton" layoutX="555.0" prefHeight="12.0" prefWidth="152.0" text="Number of quotes:" textAlignment="CENTER" textFill="#ababab" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font name="Comic Sans MS" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="quoteField" layoutX="555.0" layoutY="20.0" prefHeight="12.0" prefWidth="152.0" text="Role:" textAlignment="CENTER" textFill="#ababab" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="Comic Sans MS" size="13.0" />
          </font>

@@ -40,7 +40,13 @@ public class Update {
     quoteTextArea.setText(item.getQuote());
     teacherTextField.setText(item.getTeacher());
     subjectTextField.setText(item.getSubject());
-    datePicker.setValue(LocalDate.of(Integer.parseInt(item.getDate().toString().substring(0, 4)), Integer.parseInt(item.getDate().toString().substring(5, 7)), Integer.parseInt(item.getDate().toString().substring(8, 10))));
+    datePicker.setValue(
+      LocalDate.of(
+        Integer.parseInt(item.getDate().toString().substring(0, 4)),
+        Integer.parseInt(item.getDate().toString().substring(5, 7)),
+        Integer.parseInt(item.getDate().toString().substring(8, 10))
+      )
+    );
   }
 
   @FXML

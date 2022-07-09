@@ -52,6 +52,7 @@ public class Recovery {
           output.setTextFill(Paint.valueOf("RED"));
         }
       }
+
       connection.close();
     } catch (Exception e) {
       e.printStackTrace();

@@ -39,7 +39,7 @@ public class Registration {
       String login = loginField.getText();
       String hashPassword = User.makeMD5(passwordField.getText());
       String studyGroup = studyGroupField.getText();
-      int role = 3;
+      int role = 1;
 
       Pattern pattern = Pattern.compile("[1-9]\\d{2}-\\d{3}");
 
@@ -67,6 +67,7 @@ public class Registration {
           output.setText("This login already exists");
         }
       }
+
       connection.close();
     } catch (Exception e) {
       e.printStackTrace();

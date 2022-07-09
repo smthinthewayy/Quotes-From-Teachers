@@ -3,7 +3,6 @@ package smthinthewayy.Controller;
 import javafx.fxml.FXML;
 import smthinthewayy.Model.Main;
 
-
 public class Menu {
   @FXML
   public void moveToAuthorization() {

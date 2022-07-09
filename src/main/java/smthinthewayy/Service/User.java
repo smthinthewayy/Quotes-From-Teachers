@@ -2,20 +2,26 @@ package smthinthewayy.Service;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class User {
-  private final int id;
-  private String login;
-  private String hashPassword;
-  private final String studyGroup;
-  private final int role;
+  private int id = 0;
+  private String login = "";
+  private String hashPassword = "";
+  private String studyGroup = "";
+  private Role role = Role.STUDENT;
 
-  public User(int id, String login, String studyGroup, String hashPassword, int role) {
+  public User(int id, String login, String studyGroup, String hashPassword, Role role) {
     this.id = id;
     this.login = login;
     this.studyGroup = studyGroup;
     this.hashPassword = hashPassword;
     this.role = role;
+  }
+
+  public boolean hasPermisson(Permission perm) {
+    return role.hasPermisson(perm);
   }
 
   public int getId() {
@@ -26,8 +32,12 @@ public class User {
     return login;
   }
 
-  public int getRole() {
+  public Role getRole() {
     return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
   }
 
   public String getStudyGroup() { return studyGroup; }
@@ -43,5 +53,17 @@ public class User {
       e.printStackTrace();
     }
     return password;
+  }
+
+  public static Role initRole(ResultSet result) {
+    Role role = Role.GUEST;
+    try {
+      if (result.getInt("role") == 1) role = Role.STUDENT;
+      if (result.getInt("role") == 2) role = Role.VERIFIER;
+      if (result.getInt("role") == 3) role = Role.SUPERUSER;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return role;
   }
 }

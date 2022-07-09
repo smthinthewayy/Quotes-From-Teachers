@@ -5,8 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import smthinthewayy.Model.Main;
-import smthinthewayy.Controller.Read;
 import smthinthewayy.Service.DataSource;
+import smthinthewayy.Service.Role;
 import smthinthewayy.Service.User;
 
 import java.sql.Connection;
@@ -35,7 +35,7 @@ public class Authorization {
 
   @FXML
   public void moveToRead() {
-    DataSource.user = new User(0, "", "", "", 0);
+    DataSource.user.setRole(Role.GUEST);
     Object obj = Main.changeScene("/read.fxml");
     assert obj != null;
     ((Read) obj).filling();
@@ -62,7 +62,7 @@ public class Authorization {
 
       ResultSet result = statement.executeQuery();
       if (result.next()) {
-        DataSource.user = new User(result.getInt("id"), login, result.getString("study_group"), hashPassword, result.getInt("role"));
+        DataSource.user = new User(result.getInt("id"), login, result.getString("study_group"), hashPassword, User.initRole(result));
         moveToMenu();
       } else if (loginField.getText().isEmpty() && passwordField.getText().isEmpty()) {
         output.setText("Please enter your data");

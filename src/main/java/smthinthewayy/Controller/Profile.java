@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 import smthinthewayy.Model.Main;
 import smthinthewayy.Service.DataSource;
+import smthinthewayy.Service.Role;
 import smthinthewayy.Service.User;
 
 import java.sql.Connection;
@@ -25,6 +26,9 @@ public class Profile {
   private Label output;
 
   @FXML
+  private Label quoteField;
+
+  @FXML
   private TextField studyGroupField;
 
   @FXML
@@ -39,28 +43,20 @@ public class Profile {
     loginField.setText(DataSource.user.getLogin());
     studyGroupField.setText(DataSource.user.getStudyGroup());
 
-    int cnumberOfQuotes = 0;
+    int numberOfQuotes = 0;
 
     try {
       Connection connection = Main.createConnection();
 
-      String query;
-      PreparedStatement statement;
+      String query = "SELECT COUNT(id) FROM quotes_teachers WHERE id_user = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
 
-      if (DataSource.user.getRole() == 1) {
-        query = "SELECT COUNT(id) FROM quotes_teachers";
-        statement = connection.prepareStatement(query);
-      } else {
-        query = "SELECT COUNT(id) FROM quotes_teachers WHERE id_user = ?";
-        statement = connection.prepareStatement(query);
-
-        statement.setInt(1, DataSource.user.getId());
-      }
+      statement.setInt(1, DataSource.user.getId());
 
       ResultSet result = statement.executeQuery();
 
       while (result.next()) {
-        cnumberOfQuotes = result.getInt("COUNT(id)");
+        numberOfQuotes = result.getInt("COUNT(id)");
       }
 
       connection.close();
@@ -68,7 +64,8 @@ public class Profile {
       e.printStackTrace();
     }
 
-    numberOfQuotesButton.setText("Number of quotes: " + cnumberOfQuotes);
+    numberOfQuotesButton.setText("Number of quotes: " + numberOfQuotes);
+    quoteField.setText("Role: " + String.valueOf(DataSource.user.getRole()).toLowerCase());
   }
 
   @FXML
