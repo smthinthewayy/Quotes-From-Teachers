@@ -25,25 +25,25 @@ public class Authorization {
 
   @FXML
   public void moveToRecovery() {
-    Main.changeScene("recovery.fxml");
+    Main.changeScene("/recovery.fxml");
   }
 
   @FXML
   public void moveToMenu() {
-    Main.changeScene("menu.fxml");
+    Main.changeScene("/menu.fxml");
   }
 
   @FXML
   public void moveToRead() {
     DataSource.user = new User(0, "", "", "", 0);
-    Object obj = Main.changeScene("read.fxml");
+    Object obj = Main.changeScene("/read.fxml");
     assert obj != null;
     ((Read) obj).filling();
   }
 
   @FXML
   public void moveToRegistration() {
-    Main.changeScene("registration.fxml");
+    Main.changeScene("/registration.fxml");
   }
 
   @FXML

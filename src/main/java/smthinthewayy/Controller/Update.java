@@ -31,7 +31,7 @@ public class Update {
 
   @FXML
   public void moveToMyQuotes() {
-    Object obj = Main.changeScene("myQuotes.fxml");
+    Object obj = Main.changeScene("/myQuotes.fxml");
     assert obj != null;
     ((MyQuotes) obj).fillingOnlyMyQuotes();
   }

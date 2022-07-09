@@ -28,7 +28,7 @@ public class MyQuotes {
 
   @FXML
   public void moveToMenu() {
-    Main.changeScene("menu.fxml");
+    Main.changeScene("/menu.fxml");
   }
 
   public void fillingOnlyMyQuotes() {
@@ -93,7 +93,7 @@ public class MyQuotes {
       e.printStackTrace();
     }
 
-    Object obj = Main.changeScene("update.fxml");
+    Object obj = Main.changeScene("/update.fxml");
     assert obj != null;
     ((Update) obj).init(item);
   }
@@ -128,7 +128,7 @@ public class MyQuotes {
     columnSubject.setCellValueFactory(new PropertyValueFactory<>("Subject"));
     columnDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
 
-    Object obj = Main.changeScene("myQuotes.fxml");
+    Object obj = Main.changeScene("/myQuotes.fxml");
     assert obj != null;
     ((MyQuotes) obj).fillingOnlyMyQuotes();
   }

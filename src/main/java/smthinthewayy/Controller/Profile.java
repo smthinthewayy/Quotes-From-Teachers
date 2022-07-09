@@ -32,7 +32,7 @@ public class Profile {
 
   @FXML
   public void moveToMenu() {
-    Main.changeScene("menu.fxml");
+    Main.changeScene("/menu.fxml");
   }
 
   public void init() {

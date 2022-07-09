@@ -26,7 +26,7 @@ public class Create {
 
   @FXML
   public void moveToMenu() {
-    Main.changeScene("menu.fxml");
+    Main.changeScene("/menu.fxml");
   }
 
   public void userCreateQuote() {

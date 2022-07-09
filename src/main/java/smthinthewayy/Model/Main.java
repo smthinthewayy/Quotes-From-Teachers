@@ -22,7 +22,7 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws IOException {
     stg = primaryStage;
     primaryStage.setResizable(false);
-    Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("authorization.fxml")));
+    Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("/authorization.fxml")));
     primaryStage.setTitle("QFT");
     primaryStage.setScene(new Scene(root, 700, 400));
     primaryStage.show();

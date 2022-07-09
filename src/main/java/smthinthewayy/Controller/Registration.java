@@ -28,7 +28,7 @@ public class Registration {
 
   @FXML
   public void moveToAuthorization() {
-    Main.changeScene("authorization.fxml");
+    Main.changeScene("/authorization.fxml");
   }
 
   @FXML
