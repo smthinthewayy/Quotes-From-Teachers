@@ -13,22 +13,47 @@ import smthinthewayy.Service.Item;
 import java.sql.*;
 import java.time.LocalDate;
 
+/**
+ * Controller - interprets the user's actions, notifying the model when changes are needed
+ *
+ * @author smthinthewayy
+ */
 public class Update {
-  @FXML
-  private DatePicker datePicker;
-
-  @FXML
-  private Label output;
-
+  /**
+   * The field responsible for entering the text of the quote
+   */
   @FXML
   private TextArea quoteTextArea;
 
-  @FXML
-  private TextField subjectTextField;
-
+  /**
+   * The field responsible for entering the teacher's name
+   */
   @FXML
   private TextField teacherTextField;
 
+  /**
+   * The field responsible for entering the name of the subject
+   */
+  @FXML
+  private TextField subjectTextField;
+
+  /**
+   * The picker responsible for entering the date
+   */
+  @FXML
+  private DatePicker datePicker;
+
+  /**
+   * The field responsible for the error/success output
+   */
+  @FXML
+  private Label output;
+
+  /**
+   * Changes the scene to a window to view my quotes
+   *
+   * @see MyQuotes#fillingOnlyMyQuotes()
+   */
   @FXML
   public void moveToMyQuotes() {
     Object obj = Main.changeScene("/myQuotes.fxml");
@@ -36,25 +61,30 @@ public class Update {
     ((MyQuotes) obj).fillingOnlyMyQuotes();
   }
 
+  /**
+   * Fills the window with the data of the selected quote
+   *
+   * @param item table row
+   */
   public void init(Item item) {
     quoteTextArea.setText(item.getQuote());
     teacherTextField.setText(item.getTeacher());
     subjectTextField.setText(item.getSubject());
-    datePicker.setValue(
-      LocalDate.of(
-        Integer.parseInt(item.getDate().toString().substring(0, 4)),
-        Integer.parseInt(item.getDate().toString().substring(5, 7)),
-        Integer.parseInt(item.getDate().toString().substring(8, 10))
-      )
-    );
+    datePicker.setValue(LocalDate.of(Integer.parseInt(item.getDate().toString().substring(0, 4)), Integer.parseInt(item.getDate().toString().substring(5, 7)), Integer.parseInt(item.getDate().toString().substring(8, 10))));
   }
 
+  /**
+   * Establishes a connection to the database, sends a
+   * parameterized SQL query, updates the selected quote
+   *
+   * @see DataSource#setMargins(String)
+   */
   @FXML
   public void saveChanges() {
     try {
       Connection connection = Main.createConnection();
 
-      String quoteText = setMargins(quoteTextArea.getText());
+      String quoteText = DataSource.setMargins(quoteTextArea.getText());
       String teacher = teacherTextField.getText();
       String subject = subjectTextField.getText();
       String date = "";
@@ -86,12 +116,5 @@ public class Update {
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  private String setMargins(String temp) {
-    StringBuilder s = new StringBuilder(temp);
-    for (int i = 54; i <= temp.length(); i += 54)
-      s.insert(i, "\n");
-    return s.toString();
   }
 }

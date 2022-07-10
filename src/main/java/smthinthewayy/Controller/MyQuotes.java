@@ -8,30 +8,65 @@ import smthinthewayy.Model.Main;
 import smthinthewayy.Service.DataSource;
 import smthinthewayy.Service.Item;
 import smthinthewayy.Service.Role;
+import smthinthewayy.Service.User;
 
 import java.sql.*;
 
+/**
+ * Controller - interprets the user's actions, notifying the model when changes are needed
+ *
+ * @author smthinthewayy
+ */
 public class MyQuotes {
+  /**
+   * Table for displaying quotes
+   */
   @FXML
   private TableView<Item> tableQuotes;
 
+  /**
+   * Table column to display the text of the quote
+   */
   @FXML
   private TableColumn<Item, String> columnQuote;
 
+  /**
+   * Table column to display the date
+   */
   @FXML
   private TableColumn<Item, String> columnDate;
 
+  /**
+   * Table column to display the subject name
+   */
   @FXML
   private TableColumn<Item, String> columnSubject;
 
+  /**
+   * Table column to display the teacher's name
+   */
   @FXML
   private TableColumn<Item, String> columnTeacher;
 
+  /**
+   * Changes the scene to the main menu window
+   *
+   * @see Main#changeScene(String)
+   */
   @FXML
   public void moveToMenu() {
     Main.changeScene("/menu.fxml");
   }
 
+  /**
+   * Establishes a connection to the database and fills the table only:
+   * - quotes of the current user if the user has the <b>STUDENT</b> role;
+   * - quotes from a user group if the current user has the <b>VERIFIER</b> role
+   * - all quotes of all users if the current user has the <b>SUPERUSER</b> role
+   *
+   * @see User#getRole()
+   * @see Item
+   */
   public void fillingOnlyMyQuotes() {
     try {
       Connection connection = Main.createConnection();
@@ -74,6 +109,13 @@ public class MyQuotes {
     columnDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
   }
 
+  /**
+   * Establishes a connection to the database and sends a
+   * parameterized SQL query to change the currently selected quote
+   *
+   * @see Item
+   * @see Update#init(Item)
+   */
   @FXML
   public void botUpdate() {
     Item item = tableQuotes.getSelectionModel().getSelectedItem();
@@ -103,6 +145,13 @@ public class MyQuotes {
     ((Update) obj).init(item);
   }
 
+  /**
+   * Establishes a connection to the database and sends a
+   * parameterized SQL query to delete the currently selected quote
+   *
+   * @see Item
+   * @see MyQuotes#fillingOnlyMyQuotes()
+   */
   @FXML
   public void deleteQuote() {
     Item item = tableQuotes.getSelectionModel().getSelectedItem();

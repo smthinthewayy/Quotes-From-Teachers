@@ -15,30 +15,64 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
 
+/**
+ * Controller - interprets the user's actions, notifying the model when changes are needed
+ *
+ * @author smthinthewayy
+ */
 public class Profile {
+  /**
+   * The field responsible for entering a login
+   */
   @FXML
   private TextField loginField;
 
+  /**
+   * The field responsible for entering a password
+   */
   @FXML
   private PasswordField passwordField;
 
+  /**
+   * The field responsible for the error/success output
+   */
   @FXML
   private Label output;
 
+  /**
+   * The field responsible for displaying the user's role
+   */
   @FXML
-  private Label quoteField;
+  private Label roleField;
 
+  /**
+   * Field responsible for entering the group number
+   */
   @FXML
   private TextField studyGroupField;
 
+  /**
+   * The field responsible for outputting the number of quotes
+   */
   @FXML
   private Label numberOfQuotesButton;
 
+  /**
+   * Changes the scene to the main menu window
+   *
+   * @see Main#changeScene(String)
+   */
   @FXML
   public void moveToMenu() {
     Main.changeScene("/menu.fxml");
   }
 
+  /**
+   * Fills the window with the data of the current user.
+   * Establishes a connection to the database, sends a
+   * parameterized SQL-query to find out the number of
+   * citations of the user
+   */
   public void init() {
     loginField.setText(DataSource.user.getLogin());
     studyGroupField.setText(DataSource.user.getStudyGroup());
@@ -65,9 +99,15 @@ public class Profile {
     }
 
     numberOfQuotesButton.setText("Number of quotes: " + numberOfQuotes);
-    quoteField.setText("Role: " + String.valueOf(DataSource.user.getRole()).toLowerCase());
+    roleField.setText("Role: " + String.valueOf(DataSource.user.getRole()).toLowerCase());
   }
 
+  /**
+   * Establishes a connection to the database, sends a
+   * parameterized SQL-query to change user data
+   *
+   * @see User#makeMD5(String)
+   */
   @FXML
   public void saveChanges() {
     try {

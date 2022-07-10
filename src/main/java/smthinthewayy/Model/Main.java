@@ -14,14 +14,31 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Objects;
 
+/**
+ * Model - provides data and responds to controller commands by changing its state
+ *
+ * @author smthinthewayy
+ */
 public class Main extends Application {
+  /**
+   * Container, in which all the components of the interface are placed
+   */
   private static Stage stg;
 
+  /**
+   * Create a "zero" user and run the JavaFX runtime environment and the JavaFX application.
+   */
   public static void main(String[] args) {
     DataSource.user = new User(0, "", "", "", Role.GUEST);
     launch();
   }
 
+  /**
+   * It is the main entry point for all JavaFX applications.
+   * Update the stage, load the initial window, set the name and size.
+   *
+   * @param primaryStage Primary Stage
+   */
   @Override
   public void start(Stage primaryStage) throws IOException {
     stg = primaryStage;
@@ -32,6 +49,12 @@ public class Main extends Application {
     primaryStage.show();
   }
 
+  /**
+   * Changes the current window to the next
+   *
+   * @param fxml Next window
+   * @return Object or null
+   */
   public static Object changeScene(String fxml) {
     try {
       FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
@@ -44,6 +67,11 @@ public class Main extends Application {
     return null;
   }
 
+  /**
+   * Establishes a connection to the database
+   *
+   * @return Object of type Connection
+   */
   public static Connection createConnection() {
     Connection connection = null;
     try {

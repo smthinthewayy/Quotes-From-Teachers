@@ -11,21 +11,46 @@ import smthinthewayy.Service.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+/**
+ * Controller - interprets the user's actions, notifying the model when changes are needed
+ *
+ * @author smthinthewayy
+ */
 public class Recovery {
+  /**
+   * The field responsible for entering a login
+   */
   @FXML
   private TextField loginField;
 
+  /**
+   * The field responsible for entering a password
+   */
   @FXML
   private PasswordField passwordField;
 
+  /**
+   * The field responsible for the error/success output
+   */
   @FXML
   private Label output;
 
+  /**
+   * Changes the scene to an authorization window
+   *
+   * @see Main#changeScene(String)
+   */
   @FXML
   public void moveToAuthorization() {
     Main.changeScene("/authorization.fxml");
   }
 
+  /**
+   * Establishes a connection to the database, sends
+   * a parameterized SQL query, updates the user password
+   *
+   * @see User#makeMD5(String)
+   */
   @FXML
   public void userChangePassword() {
     try {

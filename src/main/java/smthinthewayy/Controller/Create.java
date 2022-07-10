@@ -8,32 +8,64 @@ import smthinthewayy.Service.DataSource;
 
 import java.sql.*;
 
+/**
+ * Controller - interprets the user's actions, notifying the model when changes are needed
+ *
+ * @author smthinthewayy
+ */
 public class Create {
+  /**
+   * The field responsible for entering the text of the quote
+   */
   @FXML
   private TextArea quoteTextArea;
 
+  /**
+   * The field responsible for entering the teacher's name
+   */
   @FXML
   private TextField teacherTextField;
 
+  /**
+   * The field responsible for entering the name of the subject
+   */
   @FXML
   private TextField subjectTextField;
 
+  /**
+   * The picker responsible for entering the date
+   */
   @FXML
   private DatePicker datePicker;
 
+  /**
+   * The field responsible for the error/success output
+   */
   @FXML
   private Label output;
 
+  /**
+   * Changes the scene to the main menu window
+   *
+   * @see Main#changeScene(String)
+   */
   @FXML
   public void moveToMenu() {
     Main.changeScene("/menu.fxml");
   }
 
+  /**
+   * Establishes a connection to the database. Sends a
+   * parameterized SQl query with the data entered by
+   * the user and inserts them into the table
+   *
+   * @see DataSource#setMargins(String)
+   */
   public void userCreateQuote() {
     try {
       Connection connection = Main.createConnection();
 
-      String quoteText = setMargins(quoteTextArea.getText());
+      String quoteText = DataSource.setMargins(quoteTextArea.getText());
       String teacher = teacherTextField.getText();
       String subject = subjectTextField.getText();
       String date = "";
@@ -65,12 +97,5 @@ public class Create {
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  private String setMargins(String temp) {
-    StringBuilder s = new StringBuilder(temp);
-    for (int i = 54; i <= temp.length(); i += 54)
-      s.insert(i, "\n");
-    return s.toString();
   }
 }

@@ -40,7 +40,7 @@
             <Font name="Comic Sans MS" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="quoteField" layoutX="555.0" layoutY="20.0" prefHeight="12.0" prefWidth="152.0" text="Role:" textAlignment="CENTER" textFill="#ababab" textOverrun="CENTER_ELLIPSIS">
+      <Label fx:id="roleField" layoutX="555.0" layoutY="20.0" prefHeight="12.0" prefWidth="152.0" text="Role:" textAlignment="CENTER" textFill="#ababab" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="Comic Sans MS" size="13.0" />
          </font>

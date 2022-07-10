@@ -12,28 +12,62 @@ import smthinthewayy.Service.Role;
 
 import java.sql.*;
 
+/**
+ * Controller - interprets the user's actions, notifying the model when changes are needed
+ *
+ * @author smthinthewayy
+ */
 public class Read {
+  /**
+   * Table for displaying quotes
+   */
   @FXML
   private TableView<Item> tableQuotes;
 
+  /**
+   * Table column to display the text of the quote
+   */
   @FXML
   private TableColumn<Item, String> columnQuote;
 
+  /**
+   * Table column to display the date
+   */
   @FXML
   private TableColumn<Item, String> columnDate;
 
+  /**
+   * Table column to display the subject name
+   */
   @FXML
   private TableColumn<Item, String> columnSubject;
 
+  /**
+   * Table column to display the teacher's name
+   */
   @FXML
   private TableColumn<Item, String> columnTeacher;
 
+  /**
+   * Changes the scene to the authorization window if
+   * the current user has the role of GUEST, otherwise
+   * to the main menu window
+   *
+   * @see Main#changeScene(String)
+   */
   @FXML
   public void moveToMenu() {
     if (DataSource.user.getRole() == Role.GUEST) Main.changeScene("/authorization.fxml");
     else Main.changeScene("/menu.fxml");
   }
 
+  /**
+   * Establishes a connection to the database, sends a
+   * parameterized SQL-query, fills the table with data
+   * from the SQL-query
+   *
+   * @see Item
+   */
   public void filling() {
     try {
       Connection connection = Main.createConnection();
@@ -56,6 +90,7 @@ public class Read {
     } catch (Exception e) {
       e.printStackTrace();
     }
+
     columnQuote.setCellValueFactory(new PropertyValueFactory<>("Quote"));
     columnTeacher.setCellValueFactory(new PropertyValueFactory<>("Teacher"));
     columnSubject.setCellValueFactory(new PropertyValueFactory<>("Subject"));

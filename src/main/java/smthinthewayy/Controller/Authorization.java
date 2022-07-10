@@ -13,26 +13,58 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * Controller - interprets the user's actions, notifying the model when changes are needed
+ *
+ * @author smthinthewayy
+ */
 public class Authorization {
+  /**
+   * The field responsible for entering a login
+   */
   @FXML
   private TextField loginField;
 
+  /**
+   * The field responsible for entering a password
+   */
   @FXML
   private PasswordField passwordField;
 
+  /**
+   * The field responsible for the error/success output
+   */
   @FXML
   private Label output;
 
+  /**
+   * Changes the scene to the password recovery window
+   *
+   * @see Main#changeScene(String)
+   */
   @FXML
   public void moveToRecovery() {
     Main.changeScene("/recovery.fxml");
   }
 
+  /**
+   * Changes the scene to the main menu window
+   *
+   * @see Main#changeScene(String)
+   */
   @FXML
   public void moveToMenu() {
     Main.changeScene("/menu.fxml");
   }
 
+  /**
+   * Changes the scene to a quotes view window.
+   * Give the user the GUEST role and fill out the table
+   *
+   * @see User#setRole(Role)
+   * @see Main#changeScene(String)
+   * @see Read#filling()
+   */
   @FXML
   public void moveToRead() {
     DataSource.user.setRole(Role.GUEST);
@@ -41,11 +73,26 @@ public class Authorization {
     ((Read) obj).filling();
   }
 
+  /**
+   * Changes the scene to the registration window
+   *
+   * @see Main#changeScene(String)
+   */
   @FXML
   public void moveToRegistration() {
     Main.changeScene("/registration.fxml");
   }
 
+  /**
+   * Establishes a connection to the database. Creates a password hash.
+   * Sends a parameterized SQl-request with the data entered by the user, and if such
+   * a user exists, we create an object of type User and move to the main menu.
+   *
+   * @see User#makeMD5(String)
+   * @see User#User(int, String, String, String, Role)  User
+   * @see User#initRole(ResultSet)
+   * @see Authorization#moveToMenu()
+   */
   @FXML
   public void userLogIn() {
     try {

@@ -1,5 +1,8 @@
 package smthinthewayy.Service;
 
+/**
+ * Enum, with all possible rights
+ */
 public enum Permission {
   CREATE,
   READ_ALL_QUOTES,
