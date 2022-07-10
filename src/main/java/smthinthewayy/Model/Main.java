@@ -76,7 +76,7 @@ public class Main extends Application {
     Connection connection = null;
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-      connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "password");
+      connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2034_quotes", "std_2034_quotes", "asdfghjkl");
     } catch (Exception e) {
       e.printStackTrace();
     }
