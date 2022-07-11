@@ -5,6 +5,9 @@ import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Responsible for representing the user.
+ */
 public class User {
   /**
    * User id
