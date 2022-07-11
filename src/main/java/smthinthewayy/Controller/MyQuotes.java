@@ -120,29 +120,31 @@ public class MyQuotes {
   public void botUpdate() {
     Item item = tableQuotes.getSelectionModel().getSelectedItem();
 
-    try {
-      Connection connection = Main.createConnection();
+    if (item != null) {
+      try {
+        Connection connection = Main.createConnection();
 
-      String query = "SELECT id FROM quotes_teachers WHERE (quote = ?) AND (teacher = ?) AND (subject = ?) AND (date = ?);";
-      PreparedStatement statement = connection.prepareStatement(query);
+        String query = "SELECT id FROM quotes_teachers WHERE (quote = ?) AND (teacher = ?) AND (subject = ?) AND (date = ?);";
+        PreparedStatement statement = connection.prepareStatement(query);
 
-      statement.setString(1, item.getQuote());
-      statement.setString(2, item.getTeacher());
-      statement.setString(3, item.getSubject());
-      statement.setDate(4, item.getDate());
+        statement.setString(1, item.getQuote());
+        statement.setString(2, item.getTeacher());
+        statement.setString(3, item.getSubject());
+        statement.setDate(4, item.getDate());
 
-      ResultSet result = statement.executeQuery();
+        ResultSet result = statement.executeQuery();
 
-      while (result.next()) DataSource.id_quote = result.getInt("id");
+        while (result.next()) DataSource.id_quote = result.getInt("id");
 
-      connection.close();
-    } catch (Exception e) {
-      e.printStackTrace();
+        connection.close();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+      Object obj = Main.changeScene("/update.fxml");
+      assert obj != null;
+      ((Update) obj).init(item);
     }
-
-    Object obj = Main.changeScene("/update.fxml");
-    assert obj != null;
-    ((Update) obj).init(item);
   }
 
   /**
@@ -156,34 +158,36 @@ public class MyQuotes {
   public void deleteQuote() {
     Item item = tableQuotes.getSelectionModel().getSelectedItem();
 
-    try {
-      Connection connection = Main.createConnection();
-
-      String query = "DELETE FROM quotes_teachers WHERE (quote = ?) AND (teacher = ?) AND (subject = ?) AND (date = ?);";
-      PreparedStatement statement = connection.prepareStatement(query);
-
-      statement.setString(1, item.getQuote());
-      statement.setString(2, item.getTeacher());
-      statement.setString(3, item.getSubject());
-      statement.setDate(4, item.getDate());
-
+    if (item != null) {
       try {
-        statement.execute();
-      } catch (SQLIntegrityConstraintViolationException e) {
+        Connection connection = Main.createConnection();
+
+        String query = "DELETE FROM quotes_teachers WHERE (quote = ?) AND (teacher = ?) AND (subject = ?) AND (date = ?);";
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        statement.setString(1, item.getQuote());
+        statement.setString(2, item.getTeacher());
+        statement.setString(3, item.getSubject());
+        statement.setDate(4, item.getDate());
+
+        try {
+          statement.execute();
+        } catch (SQLIntegrityConstraintViolationException e) {
+          e.printStackTrace();
+        }
+
+        connection.close();
+      } catch (Exception e) {
         e.printStackTrace();
       }
+      columnQuote.setCellValueFactory(new PropertyValueFactory<>("Quote"));
+      columnTeacher.setCellValueFactory(new PropertyValueFactory<>("Teacher"));
+      columnSubject.setCellValueFactory(new PropertyValueFactory<>("Subject"));
+      columnDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
 
-      connection.close();
-    } catch (Exception e) {
-      e.printStackTrace();
+      Object obj = Main.changeScene("/myQuotes.fxml");
+      assert obj != null;
+      ((MyQuotes) obj).fillingOnlyMyQuotes();
     }
-    columnQuote.setCellValueFactory(new PropertyValueFactory<>("Quote"));
-    columnTeacher.setCellValueFactory(new PropertyValueFactory<>("Teacher"));
-    columnSubject.setCellValueFactory(new PropertyValueFactory<>("Subject"));
-    columnDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
-
-    Object obj = Main.changeScene("/myQuotes.fxml");
-    assert obj != null;
-    ((MyQuotes) obj).fillingOnlyMyQuotes();
   }
 }
