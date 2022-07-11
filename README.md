@@ -2,9 +2,9 @@
 
 ## Relations
 
-- users = {id, login, hash_password}
+- users = {id, login, study_group, hash_password, role}
 
-- quotes_teachers = {id, quote, teacher, subject, date}
+- quotes_teachers = {id, id_user, quote, teacher, subject, date}
 
 ## Attributes of the table «quotes_teachers»
 
