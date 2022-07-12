@@ -1,5 +1,7 @@
 # Quotes-From-Teachers
 
+![Image alt](https://github.com/smthinthewayy/Quotes-From-Teachers/raw/main/preview.png)
+
 ## Relations
 
 - users = {id, login, study_group, hash_password, role}
